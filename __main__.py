@@ -1,17 +1,15 @@
 import math
 import numpy
 import pyaudio
+from waves import *
 
-def sine(frequency, length, rate):
-	length = int(length * rate)
-	factor = float(frequency) * (math.pi * 2) / rate
-	initial_range = numpy.arange(length) * factor
-	output = numpy.sin(initial_range)*numpy.sin(initial_range)
-	return output
-
-def play_tone(stream, frequency=440, length=1, rate=44100):
+def play_tone(stream, frequency=261.6, length=1, rate=44100):
 	chunks = []
-	chunks.append(sine(frequency, length, rate))
+	output1 = numpy.array(sawtooth(frequency, length, rate))
+	output2 = numpy.array(sawtooth(frequency*5, length, rate))
+	combined = output1 + output2
+
+	chunks.append(combined)
 	
 	chunk = numpy.concatenate(chunks) * 0.25
 
