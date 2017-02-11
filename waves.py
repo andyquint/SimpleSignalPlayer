@@ -34,5 +34,7 @@ def sawtooth(frequency, length, rate):
 	amin = np.amin(wave)
 	for i in xrange(len(wave)):
 		wave[i] = 2*(wave[i]-amin)/(amax-amin)-1
+	amax = np.amax(wave)
+	amin = np.amin(wave)
 
 	return wave

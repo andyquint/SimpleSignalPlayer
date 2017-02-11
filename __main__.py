@@ -2,6 +2,7 @@ import math
 import numpy
 import pyaudio
 from waves import *
+from effects import *
 
 def get_wave(frequency=261.6, length=1, rate=44100, type='sine'):
 	output = []
@@ -30,9 +31,13 @@ if __name__ == '__main__':
 
 	base_freq = 261.6
 
+	# Get waves
 	output = get_wave(type=sawtooth)
 	output = output + get_wave(frequency=base_freq*math.pow(2,4.0/12),type=sawtooth)
 	output = output + get_wave(frequency=base_freq*math.pow(2,7.0/12),type=sawtooth)
+
+	# Apply effects
+	output = clip(output)
 
 	play_tone(output, stream)
 
